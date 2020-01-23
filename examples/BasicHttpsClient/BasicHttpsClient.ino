@@ -56,7 +56,7 @@ const char* rootCACertificate = \
 // Not sure if WiFiClientSecure checks the validity date of the certificate. 
 // Setting clock just to be sure...
 void setClock() {
-  configTime(0, 0, "pool.ntp.org", "time.nist.gov");
+  ntp_conf_time(0, 0, "pool.ntp.org", "time.nist.gov", NULL);
 
   Serial.print(F("Waiting for NTP time sync: "));
   time_t nowSecs = time(nullptr);
