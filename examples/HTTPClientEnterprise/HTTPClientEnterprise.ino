@@ -3,7 +3,7 @@
 /*|TESTED BOARDS: Devkit v1 DOIT, Devkitc v4                 |*/
 /*|CORE: June 2018                                           |*/
 /*|----------------------------------------------------------|*/
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <HTTPClient.h>
 #include "esp_wpa2.h"
 #include <Wire.h>

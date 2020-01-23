@@ -7,7 +7,7 @@
 
 #include <Arduino.h>
 
-#include <WiFi.h>
+#include <AtWiFi.h>
 #include <WiFiMulti.h>
 
 #include <HTTPClient.h>

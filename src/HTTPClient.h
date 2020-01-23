@@ -29,8 +29,11 @@
 
 #define HTTPCLIENT_1_1_COMPATIBLE
 
+#undef max
+#undef min
 #include <memory>
 #include <Arduino.h>
+#include <AtWiFi.h>
 #include <WiFiClient.h>
 #include <WiFiClientSecure.h>
 
