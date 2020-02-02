@@ -1,28 +1,28 @@
 /**
- * HTTPClient.h
- *
- * Created on: 02.11.2015
- *
- * Copyright (c) 2015 Markus Sattler. All rights reserved.
- * This file is part of the HTTPClient for Arduino.
- * Port to ESP32 by Evandro Luis Copercini (2017), 
- * changed fingerprints to CA verification. 	
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- */
+    HTTPClient.h
+
+    Created on: 02.11.2015
+
+    Copyright (c) 2015 Markus Sattler. All rights reserved.
+    This file is part of the HTTPClient for Arduino.
+    Port to ESP32 by Evandro Luis Copercini (2017),
+    changed fingerprints to CA verification.
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+*/
 
 #ifndef HTTPClient_H_
 #define HTTPClient_H_
@@ -123,30 +123,29 @@ typedef enum {
 } transferEncoding_t;
 
 #ifdef HTTPCLIENT_1_1_COMPATIBLE
-class TransportTraits;
-typedef std::unique_ptr<TransportTraits> TransportTraitsPtr;
+    class TransportTraits;
+    typedef std::unique_ptr<TransportTraits> TransportTraitsPtr;
 #endif
 
-class HTTPClient
-{
-public:
+class HTTPClient {
+  public:
     HTTPClient();
     ~HTTPClient();
 
-/*
- * Since both begin() functions take a reference to client as a parameter, you need to 
- * ensure the client object lives the entire time of the HTTPClient
- */
-    bool begin(WiFiClient &client, String url);
-    bool begin(WiFiClient &client, String host, uint16_t port, String uri = "/", bool https = false);
+    /*
+        Since both begin() functions take a reference to client as a parameter, you need to
+        ensure the client object lives the entire time of the HTTPClient
+    */
+    bool begin(WiFiClient& client, String url);
+    bool begin(WiFiClient& client, String host, uint16_t port, String uri = "/", bool https = false);
 
-#ifdef HTTPCLIENT_1_1_COMPATIBLE
+    #ifdef HTTPCLIENT_1_1_COMPATIBLE
     bool begin(String url);
     bool begin(String url, const char* CAcert);
     bool begin(String host, uint16_t port, String uri = "/");
     bool begin(String host, uint16_t port, String uri, const char* CAcert);
     bool begin(String host, uint16_t port, String uri, const char* CAcert, const char* cli_cert, const char* cli_key);
-#endif
+    #endif
 
     void end(void);
 
@@ -154,8 +153,8 @@ public:
 
     void setReuse(bool reuse); /// keep-alive
     void setUserAgent(const String& userAgent);
-    void setAuthorization(const char * user, const char * password);
-    void setAuthorization(const char * auth);
+    void setAuthorization(const char* user, const char* password);
+    void setAuthorization(const char* auth);
     void setConnectTimeout(int32_t connectTimeout);
     void setTimeout(uint16_t timeout);
 
@@ -163,15 +162,15 @@ public:
 
     /// request handling
     int GET();
-    int PATCH(uint8_t * payload, size_t size);
+    int PATCH(uint8_t* payload, size_t size);
     int PATCH(String payload);
-    int POST(uint8_t * payload, size_t size);
+    int POST(uint8_t* payload, size_t size);
     int POST(String payload);
-    int PUT(uint8_t * payload, size_t size);
+    int PUT(uint8_t* payload, size_t size);
     int PUT(String payload);
-    int sendRequest(const char * type, String payload);
-    int sendRequest(const char * type, uint8_t * payload = NULL, size_t size = 0);
-    int sendRequest(const char * type, Stream * stream, size_t size = 0);
+    int sendRequest(const char* type, String payload);
+    int sendRequest(const char* type, uint8_t* payload = NULL, size_t size = 0);
+    int sendRequest(const char* type, Stream* stream, size_t size = 0);
 
     void addHeader(const String& name, const String& value, bool first = false, bool replace = true);
 
@@ -193,7 +192,7 @@ public:
 
     static String errorToString(int error);
 
-protected:
+  protected:
     struct RequestArgument {
         String key;
         String value;
@@ -204,15 +203,15 @@ protected:
     void clear();
     int returnError(int error);
     bool connect(void);
-    bool sendHeader(const char * type);
+    bool sendHeader(const char* type);
     int handleHeaderResponse();
-    int writeToStreamDataBlock(Stream * stream, int len);
+    int writeToStreamDataBlock(Stream* stream, int len);
 
 
-#ifdef HTTPCLIENT_1_1_COMPATIBLE
+    #ifdef HTTPCLIENT_1_1_COMPATIBLE
     TransportTraitsPtr _transportTraits;
     std::unique_ptr<WiFiClient> _tcpDeprecated;
-#endif
+    #endif
 
     WiFiClient* _client = nullptr;
 

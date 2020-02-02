@@ -1,9 +1,9 @@
 /**
- * Authorization.ino
- *
- *  Created on: 09.12.2015
- *
- */
+    Authorization.ino
+
+    Created on: 09.12.2015
+
+*/
 
 #include <Arduino.h>
 
@@ -24,7 +24,7 @@ void setup() {
     USE_SERIAL.println();
     USE_SERIAL.println();
 
-    for(uint8_t t = 4; t > 0; t--) {
+    for (uint8_t t = 4; t > 0; t--) {
         USE_SERIAL.printf("[SETUP] WAIT %d...\n", t);
         USE_SERIAL.flush();
         delay(1000);
@@ -36,7 +36,7 @@ void setup() {
 
 void loop() {
     // wait for WiFi connection
-    if((wifiMulti.run() == WL_CONNECTED)) {
+    if ((wifiMulti.run() == WL_CONNECTED)) {
 
         HTTPClient http;
 
@@ -47,14 +47,14 @@ void loop() {
         http.begin("http://user:password@192.168.1.12/test.html");
 
         /*
-          // or
-          http.begin("http://192.168.1.12/test.html");
-          http.setAuthorization("user", "password");
+            // or
+            http.begin("http://192.168.1.12/test.html");
+            http.setAuthorization("user", "password");
 
-          // or
-          http.begin("http://192.168.1.12/test.html");
-          http.setAuthorization("dXNlcjpwYXN3b3Jk");
-         */
+            // or
+            http.begin("http://192.168.1.12/test.html");
+            http.setAuthorization("dXNlcjpwYXN3b3Jk");
+        */
 
 
         USE_SERIAL.print("[HTTP] GET...\n");
@@ -62,12 +62,12 @@ void loop() {
         int httpCode = http.GET();
 
         // httpCode will be negative on error
-        if(httpCode > 0) {
+        if (httpCode > 0) {
             // HTTP header has been send and Server response header has been handled
             USE_SERIAL.printf("[HTTP] GET... code: %d\n", httpCode);
 
             // file found at server
-            if(httpCode == HTTP_CODE_OK) {
+            if (httpCode == HTTP_CODE_OK) {
                 String payload = http.getString();
                 USE_SERIAL.println(payload);
             }
