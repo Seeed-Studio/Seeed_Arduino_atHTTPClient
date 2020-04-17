@@ -27,7 +27,7 @@
 */
 
 #include <Arduino.h>
-#include <esp32-hal-log.h>
+#include <esp_hal_log.h>
 
 #ifdef HTTPCLIENT_1_1_COMPATIBLE
     #include <AtWiFi.h>
